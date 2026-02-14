@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netra-AI PBL Presentation | 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+
+        body {
+            background-color: #020617;
+            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #60a5fa, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #timerContainer {
+            background: #ffffff;
+            color: #020617;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            border: 3px solid #3b82f6;
+            z-index: 1000;
+        }
+
+        @keyframes flicker {
+            0%, 100% { background-color: #ffffff; }
+            50% { background-color: #fca5a5; }
+        }
+
+        .timer-warning { animation: flicker 1s infinite; border-color: #ef4444 !important; color: #b91c1c !important; }
+        .timer-stop { background-color: #991b1b !important; color: #ffffff !important; border-color: #f87171 !important; }
+
+        .chart-wrapper { position: relative; height: 350px; width: 100%; }
+        
+        .section-heading {
+            font-size: 0.75rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: #64748b;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="timerContainer" class="fixed bottom-10 right-10 px-8 py-4 rounded-3xl flex items-center gap-4 transition-all">
+        <i class="fas fa-hourglass-start text-blue-600 text-2xl" id="timerIcon"></i>
+        <span id="displayTime" class="text-4xl font-black font-mono tracking-tighter">00:00</span>
+    </div>
+
+    <nav class="fixed w-full z-50 glass border-b border-slate-800/50 px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <div class="bg-white p-1 rounded flex items-center justify-center shadow-md" style="height: 48px; width: 48px;">
+                <img src="MUJ-Logo.png" alt="MUJ" class="h-full w-auto object-contain">
+            </div>
+            <div class="flex flex-col">
+                <span class="text-xl font-black text-white leading-none uppercase tracking-tighter">Netra <span class="text-blue-500 italic">AI</span></span>
+                <span class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-1">Computer Science & Engineering</span>
+            </div>
+        </div>
+        <div class="hidden md:flex gap-8 text-[11px] uppercase tracking-widest font-bold opacity-70">
+            <a href="#problem" class="hover:text-blue-400 transition">The Problem</a>
+            <a href="#methodology" class="hover:text-blue-400 transition">How it Works</a>
+            <a href="#results" class="hover:text-blue-400 transition">Impact</a>
+            <a href="#team" class="hover:text-blue-400 transition">Presenter</a>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 pt-48 pb-32 space-y-40">
+
+        <section class="text-center">
+            <span class="section-heading"> Reg ID: 23FE10CSE00748</span>
+            <h1 class="text-7xl md:text-8xl font-extrabold mb-8 uppercase leading-tight">
+                <span class="gradient-text">NETRA-AI</span>
+            </h1>
+            <p class="text-slate-400 max-w-3xl mx-auto italic text-xl leading-relaxed border-l-4 border-blue-500/50 pl-8 text-left">
+                "Saving sight through smart code." Netra-AI is a diagnostic tool designed to bring expert-level retinal screening to rural India, helping doctors identify diabetic blindness using transparent, explainable AI.
+            </p>
+        </section>
+
+        <section id="problem" class="space-y-12">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="glass p-10 rounded-[2.5rem] border-l-4 border-blue-600">
+                    <h2 class="text-3xl font-extrabold mb-6">A Crisis of Care</h2>
+                    <p class="text-slate-400 leading-relaxed text-justify mb-4">
+                        India is the "Diabetes Capital" with over 100 million patients. However, we have a massive shortage of specialists—often only <b>one expert for every 60,000 patients.</b>
+                    </p>
+                    <p class="text-slate-500 text-sm italic">
+                        The challenge is creating a system robust enough to handle low-quality images from affordable, portable cameras used in remote health camps.
+                    </p>
+                </div>
+                <div class="glass p-10 rounded-[2.5rem] border-l-4 border-purple-600">
+                    <h2 class="text-3xl font-extrabold mb-6">The Trust Gap</h2>
+                    <ul class="text-slate-400 space-y-4 text-sm">
+                        <li class="flex gap-3"><i class="fas fa-lock-open text-purple-500 mt-1"></i> <span><b>Confidence:</b> Doctors often hesitate to use AI "black boxes." We make our AI transparent so they can verify the findings instantly.</span></li>
+                        <li class="flex gap-3"><i class="fas fa-microscope text-purple-500 mt-1"></i> <span><b>Precision:</b> Tiny red spots (lesions) are easily missed by tired human eyes. Our AI acts as a 24/7 assistant that never misses a detail.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="methodology" class="space-y-16">
+            <div class="text-center">
+                <span class="section-heading">Our AI Pipeline</span>
+                <h2 class="text-5xl font-black">From Image to <span class="text-blue-500">Diagnosis</span></h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass p-8 rounded-3xl">
+                    <div class="h-12 w-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-magic text-blue-500 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">1. Smart Cleaning</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        We use <b>Ben Graham’s Method</b> to normalize lighting and shadows. This ensures that even a photo taken in a dark rural camp looks clear and consistent for the AI.
+                    </p>
+                </div>
+
+                <div class="glass p-8 rounded-3xl">
+                    <div class="h-12 w-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-brain text-purple-500 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">2. Deep Analysis</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        Our <b>EfficientNet-B3</b> brain analyzes the retina's condition across 5 stages of severity. It's optimized to detect microscopic blood leaks that signal early-stage disease.
+                    </p>
+                </div>
+
+                <div class="glass p-8 rounded-3xl">
+                    <div class="h-12 w-12 bg-green-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-highlighter text-green-500 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">3. Visual Proof</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        Using <b>Grad-CAM</b>, the AI generates heatmaps that literally "highlight" the damaged areas, showing the doctor exactly where the problem lies.
+                    </p>
+                </div>
+            </div>
+            
+        </section>
+
+        <section id="results" class="glass p-12 rounded-[3.5rem] border-t-4 border-blue-500">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div class="chart-wrapper">
+            <canvas id="resultsChart"></canvas>
+        </div>
+        <div class="space-y-8">
+            <div>
+                <span class="section-heading">Industry-Leading Performance</span>
+                <h2 class="text-4xl font-black mb-4">Kappa Score: <span class="text-blue-500">0.8985</span></h2>
+                <p class="text-slate-400 leading-relaxed italic">
+                    This isn't just a high score—it’s <b>"Near-Perfect Agreement."</b> While standard models like VGG16 struggle with medical nuances, Netra-AI matches the decision-making of world-class vitreoretinal specialists.
+                </p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
+                    <span class="text-[10px] text-slate-500 uppercase font-bold">Clinical Accuracy</span>
+                    <div class="text-2xl font-bold text-white">92.4%</div>
+                    <p class="text-[9px] text-slate-500 mt-1 uppercase">Outperforming Base Models</p>
+                </div>
+                <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
+                    <span class="text-[10px] text-slate-500 uppercase font-bold">Screening Speed</span>
+                    <div class="text-2xl font-bold text-white">~2.5s</div>
+                    <p class="text-[9px] text-slate-500 mt-1 uppercase">Instant Diagnosis</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+        <section class="text-center space-y-8">
+            <h2 class="text-3xl font-bold">Why <span class="text-purple-500">Explainability</span> Matters?</h2>
+            <div class="max-w-3xl mx-auto text-slate-400 leading-relaxed text-lg">
+                Medical AI should be a partner, not a mystery. By showing exactly where the eye is damaged, Netra-AI gives doctors the confidence to make life-changing decisions quickly, ensuring no patient is left in the dark.
+            </div>
+        </section>
+
+        <section id="team" class="text-center pt-20 border-t border-slate-900">
+            <div class="inline-block glass px-12 py-10 rounded-[3rem] border-b-4 border-blue-600">
+                <span class="section-heading">Presented By</span>
+                <p class="font-black text-3xl text-slate-100 mb-2">Mitakshara Yadav</p>
+                <p class="text-blue-400 font-mono text-sm tracking-widest">REG ID: 23FE10CSE00748</p>
+                <div class="mt-6 pt-6 border-t border-white/5 text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em]">
+                    Manipal University Jaipur
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 text-center bg-black/40 border-t border-slate-900">
+        <p class="text-slate-600 text-[10px] font-bold tracking-[0.3em] uppercase">Department of Computer Science • 2026</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Timer logic
+            let sec = 0;
+            const timerContainer = document.getElementById('timerContainer');
+            const timerIcon = document.getElementById('timerIcon');
+            const displayTime = document.getElementById('displayTime');
+
+            setInterval(() => {
+                sec++;
+                let m = Math.floor(sec / 60);
+                let s = sec % 60;
+                displayTime.innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+
+                if (sec >= 480 && sec < 600) {
+                    timerContainer.classList.add('timer-warning');
+                    timerIcon.classList.replace('fa-hourglass-start', 'fa-hourglass-half');
+                } else if (sec >= 600) {
+                    timerContainer.classList.replace('timer-warning', 'timer-stop');
+                    displayTime.innerText = "10:00";
+                    timerIcon.classList.replace('fa-hourglass-half', 'fa-hourglass-end');
+                }
+            }, 1000);
+
+            // Chart Logic
+            const ctx = document.getElementById('resultsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['VGG16', 'ResNet50', 'Netra-AI (B3)'],
+                    datasets: [{
+                        label: 'Kappa Score',
+                        data: [0.68, 0.74, 0.8985],
+                        backgroundColor: ['#1e293b', '#334155', '#3b82f6'],
+                        borderRadius: 15,
+                        barThickness: 45
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b' } },
+                        x: { grid: { display: false }, ticks: { color: '#64748b' } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
